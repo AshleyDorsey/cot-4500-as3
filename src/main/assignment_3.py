@@ -115,78 +115,123 @@ def lu_factorization(lu_matrix):
 
     # set the l equal to the size, but where the left over values will be 0s
     l_factor = np.eye(size)
-    # set the u equal to the size
+    # set the u equal to the size, but where the left over values will be 0s
     u_factor = np.zeros_like(lu_matrix)
 
+    # create a for loop
     for i in range(size):
+        # create another step in the for loop to find the u
         for j in range(i, size):
+            # set the u[i, j] equal to the matrix[i, j] minus the l[i, all of i] and u[all of i, j]
             u_factor[i, j] = (lu_matrix[i, j] - np.dot(l_factor[i, :i], u_factor[:i, j]))
-    
+
+        # create another step in the for loop to find the l
         for j in range(i + 1, size):
+            # set the l[j, i] equal to the matrix[j, i] minus the l[j, all of i] and u[all of i, i] all
+            #   divided by u[i, i]
             l_factor[j, i] = (lu_matrix[j, i] - np.dot(l_factor[j, :i], u_factor[:i, i])) / u_factor[i, i]
     
+    # set the determinant equal to the linear algebra determinant function of the matrix
     determinant = np.linalg.det(lu_matrix)
 
+    # print the determinant
     print(determinant, "\n")
+    # print the l matrix
     print(l_factor, "\n")
+    # print the u matrix
     print(u_factor, "\n")
 
 ## Question 5 - Determine if the following matrix is diagonally dominate (true/false)
 
+# create a function to figure out if the matrix is diagonally dominant
 def diagonally_dominant(dd_matrix, n):
 
+    # create a for loop
     for i in range(0, n):
+        # set the total equal to 0 initially
         total = 0
+        # create another step in the for loo[]
         for j in range(0, n):
+            # set the total equal to the current total plus the absolute value of the matrix at [i][j]
             total = total + abs(dd_matrix[i][j])
         
+        # set the total equal to the total minus the absolute value of the matrix at [i][i]      
         total = total - abs(dd_matrix[i][i])
     
+    # if the absolute value of the matrix at [i][i] is less than the total
     if abs(dd_matrix[i][i]) < total:
+        # print false
         print("False\n")
+    # otherwise, if the absolute value is greater than or equal to the total
     else:
+        # print true
         print("True\n")
 
 ## Question 6 - Determine if the matrix is a positive definite (true/false)
 
+# create a function to figure out if the matrix is positive definite
 def positive_definite(pd_matrix):
+    # set the eigenvalues variable equal to the linear algebra eigvals function of the matrix
     eigenvalues = np.linalg.eigvals(pd_matrix)
 
+    # if all of the eigenvalues are greater than 0
     if np.all(eigenvalues > 0):
+        # print true
         print("True\n")
+    # otherwise if not all of the eigenvalues are greater than 0
     else:
+        # print false
         print("False\n")
 
 # main function
 if __name__ == "__main__":
     
     ## 1 - Euler's Method
+    # set the initial x-value to be 0
     t_0 = 0
+    # set the initial y-value to be 1
     y_0 = 1
+    # set the number of iterations to be 10
     iterations = 10
+    # set the range to be the final range minus the initial range (2)
     x = 2
+    # call function
     eulers_method(t_0, y_0, iterations, x)
 
     ## 2 - Runge-Kutta 
+    # set the initial x-value to be 0
     t_0 = 0
+    # set the initial y-valye to be 1
     y_0 = 1
+    # set the number of iterations to be 10
     iterations = 10
+    # set the range to be the final range minus the initial range (2)
     x = 2
+    # call function
     runge_kutta(t_0, y_0, iterations, x) 
 
     ## 3 - Gaussian elimination and backwards substitution 
+    # create the matrix
     gaussian_matrix = np.array([[2, -1, 1, 6], [1, 3, 1, 0], [-1, 5, 4, -3]])
+    # call the function
     gaussian_elimination(gaussian_matrix)
 
     ## 4 - LU factorization 
+    # create the matrix (make sure it has the type double)
     lu_matrix = np.array([[1, 1, 0, 3], [2, 1, -1, 1], [3, -1, -1, 2], [-1, 2, 3, -1]], dtype = np.double)
+    # call the function
     lu_factorization(lu_matrix)
 
     ## 5 - Diagonally dominate 
+    # set n (the size) equal to the amount of rows and columns (5)
     n = 5
+    # create the matrix
     dd_matrix = np.array([[9, 0, 5, 2, 1], [3, 9, 1, 2, 1], [0, 1, 7, 2, 3], [4, 2, 3, 12, 2], [3, 2, 4, 0, 8]])
+    # call the function
     diagonally_dominant(dd_matrix, n)
 
     ## 6 - Positive definite
+    # create the matrix
     pd_matrix = np.matrix([[2, 2, 1], [2, 3, 0], [1, 0, 2]])
+    # call the function
     positive_definite(pd_matrix)
