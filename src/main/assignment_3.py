@@ -24,9 +24,9 @@ def eulers_method(t, y, iterations, x):
 
         # set t equal to t plus the step to continue getting a new t
         t = t + h
-    
+
     # print the final y, which is the approximate value
-    print(y, "\n")
+    print("%.5f" %y, "\n")
 
 ## Question 2 - Runge-Kutta with the following details: function - t - y^2; range - 0 < t < 2; iterations - 10;
 ##              initial point - f(0) = 1
@@ -59,7 +59,7 @@ def runge_kutta(t, y, iterations, x):
         t = t + h
 
     # print the final y
-    print(y, "\n")
+    print("%.5f" %y, "\n")
 
 ## Question 3 - Use Gaussian elimination and backward substitution solve the linear system of equations written in
 ##              augmented matrix format
@@ -99,7 +99,7 @@ def gaussian_elimination(gaussian_matrix):
         inputs[i] = (gaussian_matrix[i, -1] - np.dot(gaussian_matrix[i, i: -1], inputs[i:])) / gaussian_matrix[i, i]
     
     # set another variable equal to an array of the first three inputs (all of which need to be int)
-    final_answer = np.array([int(inputs[0]), int(inputs[1]), int(inputs[2])])
+    final_answer = np.array([inputs[0], inputs[1], inputs[2]])
     # print the final answer
     print(final_answer, "\n")
 
@@ -135,7 +135,7 @@ def lu_factorization(lu_matrix):
     determinant = np.linalg.det(lu_matrix)
 
     # print the determinant
-    print(determinant, "\n")
+    print("%.5f" %determinant, "\n")
     # print the l matrix
     print(l_factor, "\n")
     # print the u matrix
@@ -177,11 +177,11 @@ def positive_definite(pd_matrix):
     # if all of the eigenvalues are greater than 0
     if np.all(eigenvalues > 0):
         # print true
-        print("True\n")
+        print("True")
     # otherwise if not all of the eigenvalues are greater than 0
     else:
         # print false
-        print("False\n")
+        print("False")
 
 # main function
 if __name__ == "__main__":
